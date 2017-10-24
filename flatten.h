@@ -81,6 +81,9 @@ namespace Flatten {
         }
 
         virtual void geo2proj(double lat, double lon, double& x, double& y) {
+            lon = deg2rad(lon);
+            lat = deg2rad(lat);
+
             x = FE + r * (lon - lambda_o) * std::cos(phi_1);
             y = FN + r * lat;
         }
@@ -88,6 +91,9 @@ namespace Flatten {
         virtual void proj2geo(double x, double y, double& lat, double& lon) {
             lat = (y - FN) / r;
             lon = lambda_o + (x - FE) / (r * std::cos(phi_1));
+
+            lon = rad2deg(lon);
+            lat = rad2deg(lat);
         }
 
         virtual unsigned char enviProjectionType() {
@@ -126,6 +132,8 @@ namespace Flatten {
         }
 
         virtual void geo2proj(double lat, double lon, double& x, double& y) {
+            lon = deg2rad(lon);
+            lat = deg2rad(lat);
 
             double t;
             if (phi_o < 0) { // South Pole centered
@@ -177,6 +185,9 @@ namespace Flatten {
             else {
                 lon = lambda_o + atan2(x - FE, FN - y);
             }
+
+            lon = rad2deg(lon);
+            lat = rad2deg(lat);
         }
 
         virtual unsigned char enviProjectionType() {
